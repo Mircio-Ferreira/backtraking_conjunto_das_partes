@@ -50,11 +50,20 @@ void pop(List *list){
 }
 
 void print_list(List *list){
-    if(list == NULL) return;
+    if(list == NULL){
+        printf("{ NULL }\n");
+        return;
+    }
 
     Node *temp = list->head;
+    printf("{ ");
     while(temp != NULL){
-        printf("%c ",temp->letter);
+        if(temp->next == NULL){
+            printf("%c",temp->letter);
+            break;
+        }
+        printf("%c , ",temp->letter);
         temp = temp->next;
     }
+    printf(" }\n");
 }
