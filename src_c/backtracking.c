@@ -4,7 +4,7 @@ void backtrack(char *alphabet, int idx, int n, List *list){
 
 
     if(idx == n){
-        print_list(list);
+        //print_list(list);
         return;
     }
     
