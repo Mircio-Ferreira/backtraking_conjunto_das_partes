@@ -1,7 +1,7 @@
-#define SMALL 5
-#define MIDDLE 10
-#define BIG 15
-#define LEN_TEST 30
+#define SMALL 10
+#define MIDDLE 15
+#define BIG 30
+#define LEN_TEST 1
 #define FLAG_ERASER_TEST 1
 
 

@@ -17,7 +17,13 @@ int main(){
 
     for(int i = 0; i < LEN_TEST; i++){
         test(SMALL ,alphabet,FILE_NAME_SMALL);
+    }
+
+    for(int i = 0; i < LEN_TEST; i++){
         test(MIDDLE ,alphabet,FILE_NAME_MIDDLE);
+    }
+
+    for(int i = 0; i < LEN_TEST; i++){
         test(BIG ,alphabet,FILE_NAME_BIG);
     }
 
