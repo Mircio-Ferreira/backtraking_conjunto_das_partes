@@ -6,10 +6,14 @@
 
 int main(){
 
-    char alphabet[30];
-    int n = 30;
+    char alphabet[BIG];
+
+    if(BIG < MIDDLE || BIG < SMALL){
+        printf("ERRO: BIG CASES NEED TO BE BIGGER THAN MIDDLE OR SMALL");
+        return 0;
+    }
     
-    for (int i = 0; i < n; i++) alphabet[i] = 'A' + i;
+    for (int i = 0; i < BIG; i++) alphabet[i] = 'A' + i;
 
     eraser_test_file(FILE_NAME_SMALL);
     eraser_test_file(FILE_NAME_MIDDLE);
