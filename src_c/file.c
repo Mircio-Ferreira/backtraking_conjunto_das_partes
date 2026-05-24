@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include <string.h>
-#include <stdio.h>
 #include "macro.h"
 
 void write_file(const char *filename, int len, double seconds) {

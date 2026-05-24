@@ -1,28 +1,22 @@
+#include <stdio.h>
 #include <time.h>
-#include <windows.h>
 #include "linked_list.h"
 #include "backtracking.h"
 #include "file.h"
 
 void test(int len ,char *alphabet,char *file_name){
 
-    LARGE_INTEGER star, end , frequency;
-
-    QueryPerformanceFrequency(&frequency);
+    clock_t start, end;
 
     List *list = init_list();
 
-    QueryPerformanceCounter(&star);
+    start = clock();
 
     backtrack(alphabet , 0 , len , list);
 
-    QueryPerformanceCounter(&end);
+    end = clock();
 
-    long long dif_ticker = end.QuadPart - star.QuadPart;
-
-    double seconds =(double)dif_ticker/ frequency.QuadPart;
-
-    //printf("len set %d time: %.9f\n",len,seconds);
+    double seconds = (double)(end - start) / CLOCKS_PER_SEC;
 
     write_file(file_name,len,seconds);
 
