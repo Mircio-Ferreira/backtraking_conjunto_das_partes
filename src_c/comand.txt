@@ -1,1 +1,0 @@
-gcc src_c/main.c src_c/linked_list.c src_c/backtracking.c src_c/test.c src_c/file.c -o programa.exe

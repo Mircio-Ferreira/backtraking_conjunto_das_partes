@@ -1,5 +1,10 @@
 a.exe
 programa.exe
-case_tests_c/BIG_TEST
-case_tests_c/MIDDLE_TEST
-case_tests_c/SMALL_TEST
+c/programa.exe
+c/case_tests_c/BIG_TEST
+c/case_tests_c/MIDDLE_TEST
+c/case_tests_c/SMALL_TEST
+go/backtrackingtc
+go/case_tests_go/BIG_TEST
+go/case_tests_go/MIDDLE_TEST
+go/case_tests_go/SMALL_TEST

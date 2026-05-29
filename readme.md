@@ -17,12 +17,12 @@ O objetivo é medir a eficiência computacional ao gerar todos os subconjuntos p
 ### Metodologia de Teste
 Para garantir a consistência estatística
 
-* **30 execuções** para cada nível de dificuldade.
+* **5 execuções** para cada nível de dificuldade.
 
 * **3 níveis de carga**:
-    * **Pequeno (Small):**
-    * **Médio (Middle):** 
-    * **Grande (Big):** 
+    * **Pequeno (Small):** 20 elementos
+    * **Médio (Middle):** 25 elementos
+    * **Grande (Big):** 30 elementos
 
 
 ---
@@ -35,8 +35,23 @@ A implementação em C foca em controle de baixo nível:
 * **Estrutura:** Lista encadeada (Linked List) implementada do zero.
 * **Tempo:** Medição precisa utilizando a biblioteca `time.h`.
 
-### 2. [INSIRA A SEGUNDA LINGUAGEM AQUI]
-* [Ex: Python / Java / Rust]
-* [Descrever brevemente a abordagem: ex: Gerenciamento automático de memória, tipagem, etc.]
+### 2. Linguagem Go
+* Implementação equivalente à versão C.
+* Backtracking recursivo idiomático com slice representando o subconjunto atual.
+
+---
+
+## ▶️ Como executar
+
+### C
+```bash
+gcc c/src_c/main.c c/src_c/linked_list.c c/src_c/backtracking.c c/src_c/test.c c/src_c/file.c -o c/programa.exe
+./c/programa.exe
+```
+
+### Go
+```bash
+go run ./go
+```
 
 ---

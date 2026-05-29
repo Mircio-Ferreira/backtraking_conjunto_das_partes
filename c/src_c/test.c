@@ -12,6 +12,7 @@ void test(int len ,char *alphabet,char *file_name){
 
     start = clock();
 
+    
     backtrack(alphabet , 0 , len , list);
 
     end = clock();
