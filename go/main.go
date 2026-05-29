@@ -1,6 +1,7 @@
 package main
 
 import (
+	"container/list"
 	"fmt"
 	"io"
 	"os"
@@ -93,18 +94,30 @@ func generateAlphabet(n int) []byte {
 	return alphabet
 }
 
-func backtrack(alphabet []byte, idx, n int, current []byte, visit func([]byte)) {
+func backtrack(alphabet []byte, idx, n int, current *list.List, visit func([]byte)) {
+	if current == nil {
+		current = list.New()
+	}
+
 	if idx == n {
 		if visit != nil {
-			visit(append([]byte(nil), current...))
+			visit(listBytes(current))
 		}
 		return
 	}
 
-	current = append(current, alphabet[idx])
+	current.PushBack(alphabet[idx])
 	backtrack(alphabet, idx+1, n, current, visit)
-	current = current[:len(current)-1]
+	current.Remove(current.Back())
 	backtrack(alphabet, idx+1, n, current, visit)
+}
+
+func listBytes(current *list.List) []byte {
+	result := make([]byte, 0, current.Len())
+	for e := current.Front(); e != nil; e = e.Next() {
+		result = append(result, e.Value.(byte))
+	}
+	return result
 }
 
 func runBenchmark(setSize int, alphabet []byte, fileName string) {

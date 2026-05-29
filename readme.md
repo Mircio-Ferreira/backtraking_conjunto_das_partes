@@ -37,7 +37,7 @@ A implementação em C foca em controle de baixo nível:
 
 ### 2. Linguagem Go
 * Implementação equivalente à versão C.
-* Backtracking recursivo idiomático com slice representando o subconjunto atual.
+* Backtracking recursivo com lista encadeada da biblioteca padrão (`container/list`), equivalente à pilha/lista usada em C.
 
 ---
 
