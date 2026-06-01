@@ -12,7 +12,7 @@ const (
 	smallSetSize  = 20
 	middleSetSize = 25
 	bigSetSize    = 30
-	testRuns      = 5
+	testRuns      = 30
 
 	eraseTestFiles = true
 

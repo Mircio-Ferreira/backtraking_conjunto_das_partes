@@ -1,7 +1,7 @@
 #define SMALL 20
 #define MIDDLE 25
 #define BIG 30
-#define LEN_TEST 5
+#define LEN_TEST 30
 #define FLAG_ERASER_TEST 1
 
 #define FILE_NAME_SMALL "c/case_tests_c/SMALL_TEST"
