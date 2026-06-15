@@ -216,6 +216,9 @@ gcc c/src_c/main.c c/src_c/linked_list.c c/src_c/backtracking.c c/src_c/test.c c
 
 ### Go
 
+> [!CAUTION]
+> ### ⚠️ Requisito de Sistema (Linux)
+
 ```bash
 go run ./go
 ```
