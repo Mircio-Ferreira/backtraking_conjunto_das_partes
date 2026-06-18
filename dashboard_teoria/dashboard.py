@@ -190,11 +190,18 @@ def render_average_time_chart(summary: pd.DataFrame, use_log_scale: bool) -> Non
         x="n",
         y="media_tempo",
         color="linguagem",
+        error_y="desvio_padrao",
         markers=True,
-        hover_data=["cenario", "quantidade_execucoes"],
+        hover_data=[
+            "cenario",
+            "quantidade_execucoes",
+            "media_tempo",
+            "desvio_padrao",
+        ],
         labels={
             "n": "Tamanho da entrada (n)",
-            "media_tempo": "Tempo médio de execução",
+            "media_tempo": "Tempo médio de execução (s)",
+            "desvio_padrao": "Desvio-padrão (s)",
             "linguagem": "Linguagem",
             "cenario": "Cenário",
             "quantidade_execucoes": "Quantidade de execuções",
@@ -232,12 +239,20 @@ def render_theoretical_chart(summary: pd.DataFrame, use_log_scale: bool) -> None
                 y=ordered_group["media_tempo"],
                 mode="lines+markers",
                 name=language,
-                customdata=ordered_group[["cenario", "quantidade_execucoes"]],
+                error_y={
+                    "type": "data",
+                    "array": ordered_group["desvio_padrao"],
+                    "visible": True,
+                },
+                customdata=ordered_group[
+                    ["cenario", "quantidade_execucoes", "desvio_padrao"]
+                ],
                 hovertemplate=(
                     "Linguagem: "
                     + language
                     + "<br>n: %{x}"
-                    + "<br>Tempo médio: %{y}"
+                    + "<br>Tempo médio: %{y} s"
+                    + "<br>Desvio-padrão: %{customdata[2]} s"
                     + "<br>Cenário: %{customdata[0]}"
                     + "<br>Execuções: %{customdata[1]}"
                     + "<extra></extra>"
@@ -257,7 +272,7 @@ def render_theoretical_chart(summary: pd.DataFrame, use_log_scale: bool) -> None
 
     fig.update_layout(
         xaxis_title="Tamanho da entrada (n)",
-        yaxis_title="Tempo médio de execução",
+        yaxis_title="Tempo médio de execução (s)",
         legend_title_text="Série",
     )
     if use_log_scale:
@@ -272,21 +287,48 @@ def render_boxplot(results: pd.DataFrame) -> None:
 
     fig = px.box(
         plot_data,
-        x="n",
+        x="linguagem",
         y="tempo_execucao",
         color="linguagem",
         facet_col="cenario",
-        points="all",
+        points="outliers",
+        hover_data=["n", "arquivo"],
         labels={
             "n": "Tamanho da entrada (n)",
-            "tempo_execucao": "Tempo de execução",
+            "arquivo": "Arquivo",
+            "tempo_execucao": "Tempo de execução (s)",
             "linguagem": "Linguagem",
             "cenario": "Cenário",
         },
     )
-    fig.update_layout(boxmode="group")
-    fig.update_yaxes(matches=None)
+    fig.update_layout(
+        boxmode="group",
+        height=520,
+        margin={"l": 50, "r": 20, "t": 50, "b": 50},
+    )
+    facet_titles = {
+        "cenario=SMALL_TEST": "SMALL_TEST (n=20, eixo Y em s)",
+        "Cenário=SMALL_TEST": "SMALL_TEST (n=20, eixo Y em s)",
+        "scenario=SMALL_TEST": "SMALL_TEST (n=20, eixo Y em s)",
+        "cenario=MIDDLE_TEST": "MIDDLE_TEST (n=25, eixo Y em s)",
+        "Cenário=MIDDLE_TEST": "MIDDLE_TEST (n=25, eixo Y em s)",
+        "scenario=MIDDLE_TEST": "MIDDLE_TEST (n=25, eixo Y em s)",
+        "cenario=BIG_TEST": "BIG_TEST (n=30, eixo Y em s)",
+        "Cenário=BIG_TEST": "BIG_TEST (n=30, eixo Y em s)",
+        "scenario=BIG_TEST": "BIG_TEST (n=30, eixo Y em s)",
+    }
+    fig.for_each_annotation(
+        lambda annotation: annotation.update(
+            text=facet_titles.get(annotation.text, annotation.text)
+        )
+    )
+    fig.update_yaxes(matches=None, showticklabels=True)
     st.plotly_chart(fig, use_container_width=True)
+    st.caption(
+        "Escala: eixo Y linear em segundos. Cada cenário possui escala vertical independente "
+        "para evidenciar a dispersão interna das 30 execuções. Apenas pontos classificados "
+        "como outliers são exibidos individualmente."
+    )
 
 
 def main() -> None:
